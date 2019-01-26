@@ -11,9 +11,12 @@ Folder hierarchy (OUTPUT):
 <REPO> \
     <SESSION-NAME>        - Generated files for this session
     <VIDEO-FILE-FEATURES> - Extracted Data for each video file
-    
+
 Usage:
+            cd yottato
+            python setup.py install
+            Then from the calling script,
             from yottato import yottato as yto
             yt = yto('config.json')
 
-yt object has details specified in the JSON
+yt object has values specified in the JSON and can be accessed directly
