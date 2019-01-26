@@ -1,6 +1,6 @@
 # yottato
 
-## Python data Organiser for Yotta sized ML tasks
+## Python data file Organiser
 
 Organises key information required for training classifiers.
 
