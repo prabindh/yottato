@@ -5,13 +5,14 @@
 Organises key information required for training classifiers.
 
 ## Folder hierarchy (INPUT):
-`<REPO>` \
-    `<VIDEO-FILES>`         - List of large source files (ex MP4)
+- `<REPO>` \
+   - `<VIDEO-FILES>`         - List of large source files (ex MP4)
 
 ## Folder hierarchy (OUTPUT):
-`<REPO>` \
-    `<SESSION-NAME>`        - Generated files for this session
-    `<VIDEO-FILE-FEATURES>` - Extracted Data for each video file
+- `<REPO>`
+   - `<SESSION-NAME>`        - Generated files for this session \
+
+      - `<VIDEO-FILE-FEATURES>` - Extracted Data for each video file
 
 ## Usage
 ```
