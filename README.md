@@ -14,7 +14,17 @@ Organises key information required for training classifiers.
 
       - `<VIDEO-FILE-FEATURES>` - Extracted Data for each video file
 
-## Usage
+
+## Installation via pip:
+
+`pip install git+https://github.com/prabindh/yottato.git#egg=yottato`
+
+### Usage:
+            `from yottato import yottato as yto`
+            `yt = yto('config.json')`
+            `yt object has details specified in the JSON`
+
+## Usage via setup
 ```
             cd yottato
 
