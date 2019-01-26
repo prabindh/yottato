@@ -51,18 +51,25 @@ class yottato():
            raise Exception("Config path [", configPath, "] doesn't exist")
         with open(self.configPath, "r") as configFile:
             self.config = json.load(configFile)
-            self.repo = self.config['globaldataRepo']
-            if not os.path.exists(self.repo):
-               raise Exception("Global repo path [", self.repo, "] doesn't exist")
-            self.classes = self.config['classes']
+            self.repoDir = self.config['globaldataRepo']
+            if not os.path.exists(self.repoDir):
+               raise Exception("Global repo path [", self.repoDir, "] doesn't exist")
+            self.classes = self.config['classes']            
             self.trainsPerTest = math.ceil(self.config['traintestsplit'] / (100 - self.config['traintestsplit']))     
             self.sessionName = self.config['sessionname']
-            self.videocsvDir = os.path.join(self.repo, self.sessionName)
+            self.workDir = os.path.join(self.repoDir, self.sessionName)
+            self.featureFileName = self.config['featurefile']
             self.videoConfig = self.__getVideoTrainConfig(self.config)
-            self.videoFileListJson = self.videoConfig['trainingfilelist']
-            if not os.path.exists(self.videoFileListJson):
-               raise Exception("Training input video filelist json [", self.videoFileListJsonFile, "] doesn't exist")
-            self.videoFilesJson = self.__getVideoFilesJson(self.videoFileListJsonFile)
+            self.videoLoadToMemory = self.videoConfig["loadtomemory"]
+            self.videoBatchSize = self.videoConfig["batchsize"]
+            self.videoFileListJsonFile = self.videoConfig['trainingfilelist']
+            if not os.path.exists(self.videoFileListJsonFile):
+                print ("Training input video filelist json [", self.videoFileListJsonFile, "] doesn't exist")
+                self.videoFilesJson = None
+            else:
+                self.videoFilesJson = self.__getVideoFilesJson(self.videoFileListJsonFile)
+            self.videoLearningRate = self.videoConfig['learningrate']
+            self.videoDecay = self.videoConfig['decay']
             self.videoEpochs = self.videoConfig['epochs']
             self.videoAlgorithm = self.videoConfig['algorithm']
             self.videoSeqLength = self.videoConfig['sequencelength']
