@@ -64,7 +64,7 @@ class yottato():
             self.videoBatchSize = self.videoConfig["batchsize"]
             self.videoFileListJsonFile = self.videoConfig['trainingfilelist']
             if not os.path.exists(self.videoFileListJsonFile):
-                print ("Training input video filelist json [", self.videoFileListJsonFile, "] doesn't exist")
+                print ("Training input video filelist json [", self.videoFileListJsonFile, "] doesn't exist, skipping")
                 self.videoFilesJson = None
             else:
                 self.videoFilesJson = self.__getVideoFilesJson(self.videoFileListJsonFile)
