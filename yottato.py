@@ -45,7 +45,12 @@ class yottato():
            raise Exception("Config path [", jsonFile, "] doesn't exist")    
         with open(jsonFile, "r") as configFile:
             return json.load(configFile)
-   
+    def __getAudioTrainConfig(self, config):
+        for audioConfig in config['training']:
+            if audioConfig["modality"] == "audio":    
+                return audioConfig
+        raise Exception('Audio training entry not found')
+           
     def __loadConfig(self, configPath):
         if not os.path.exists(configPath):
            raise Exception("Config path [", configPath, "] doesn't exist")
@@ -63,15 +68,26 @@ class yottato():
             self.videoLoadToMemory = self.videoConfig["loadtomemory"]
             self.videoBatchSize = self.videoConfig["batchsize"]
             self.videoFileListJsonFile = self.videoConfig['trainingfilelist']
-            if not os.path.exists(self.videoFileListJsonFile):
-                print ("Training input video filelist json [", self.videoFileListJsonFile, "] doesn't exist, skipping")
+            if not os.path.exists(os.path.join(self.repoDir, self.videoFileListJsonFile)):
+                print ("Training input video filelist json [", os.path.join(self.repoDir, self.videoFileListJsonFile, "] doesn't exist, skipping")
                 self.videoFilesJson = None
             else:
-                self.videoFilesJson = self.__getVideoFilesJson(self.videoFileListJsonFile)
+                self.videoFilesJson = self.__getVideoFilesJson(os.path.join(self.repoDir, self.videoFileListJsonFile))
             self.videoLearningRate = self.videoConfig['learningrate']
             self.videoDecay = self.videoConfig['decay']
             self.videoEpochs = self.videoConfig['epochs']
             self.videoAlgorithm = self.videoConfig['algorithm']
             self.videoSeqLength = self.videoConfig['sequencelength']
+            
+            #Audio
+            self.audioConfig = __getAudioTrainConfig(self.config)
+            self.audioAlgorithm = self.audioConfig["algorithm"]
+            self.audioFileListJsonFile = self.audioConfig['trainingfilelist']
+            if not os.path.exists(os.path.join(self.repoDir, self.audioFileListJsonFile)):
+                print ("Training input audio filelist json [", os.path.join(self.repoDir, self.audioFileListJsonFile), "] doesn't exist, skipping")
+                self.audioFilesJson = None
+            else:
+                self.audioFilesJson = self.__getaudioFilesJson(os.path.join(self.repoDir, self.audioFileListJsonFile))
+            
             
   
